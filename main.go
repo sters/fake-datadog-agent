@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/DataDog/datadog-agent/pkg/trace/pb"
 )
@@ -30,8 +31,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	for _, t := range traces {
 		for _, s := range t {
 			log.Printf(
-				"[%s] %s (%+v)",
+				"[%s] [%v - %v] %s (%+v)",
 				s.Service,
+				time.Unix(0, s.Start),
+				time.Unix(0, s.Start+s.Duration),
 				s.Name,
 				s.Meta,
 			)
