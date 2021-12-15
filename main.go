@@ -31,11 +31,16 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	for _, t := range traces {
 		for _, s := range t {
 			log.Printf(
-				"[%s] [%v - %v] %s (%+v)",
+				"[%s] [%v (%v)] [%s] [%s] %s {TraceID:%v, ParentID:%v, SpanID:%v, Meta:%+v}",
 				s.Service,
 				time.Unix(0, s.Start),
-				time.Unix(0, s.Start+s.Duration),
+				time.Duration(s.Duration),
+				s.Type,
 				s.Name,
+				s.Resource,
+				s.TraceID,
+				s.ParentID,
+				s.SpanID,
 				s.Meta,
 			)
 		}
