@@ -24,7 +24,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	var traces pb.Traces
 	_, err = traces.UnmarshalMsg(buf.Bytes())
 	if err != nil {
-		log.Println("failed parse traces")
+		log.Printf("failed parse traces: %+v", err)
+		log.Println(buf)
 		return
 	}
 
